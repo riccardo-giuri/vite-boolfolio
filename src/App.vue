@@ -1,50 +1,35 @@
 <script>
-  import axios from 'axios';
-  import Card from './components/Card.vue';
-
   export default {
-    components: {
-      Card
-    },
-
     data() {
       return {
         projects: []
       }
-    },
-
-    methods: {
-      fetchData() {
-        axios.get("http://127.0.0.1:8000/api/projects")
-        .then((response) => {
-          this.projects = response.data;
-          console.log(this.projects[0]);
-        })
-      },
-
-      getImageURL(project) {
-        return `http://127.0.0.1:8000/storage/${project.imageURL}`
-      }
-    },
-
-    mounted() {
-      this.fetchData();
     }
   }
 </script>
 
 <template>
-  <h1 class="text-center pt-3">Lista dei progetti</h1>
+  <nav class="nav-bg">
+    <div class="container">
+      <div class="py-3 d-flex align-items-center">
+        <h2>PORTFOLIO</h2>
 
-  <div class="container mt-4">
-      <div class="row">
-        <div class="col-4" v-for="project in this.projects" :key="project.id">
-          <Card :project="project" :image="getImageURL(project)"></Card>
-        </div>
+        <ul class="ms-auto d-flex list-unstyled gap-4">
+          <li><RouterLink :to="{name: 'home'}" class="text-dark text-decoration-none">Home</RouterLink></li>
+          <li><RouterLink :to="{name: 'index'}" class="text-dark text-decoration-none">Lista Progetti</RouterLink></li>
+          <li><a href="http://127.0.0.1:8000/login" class="text-dark text-decoration-none">Accedi</a></li>
+        </ul>
       </div>
-  </div>    
+    </div>
+  </nav>
+
+  <main>
+    <RouterView></RouterView>
+  </main>
 </template>
 
 <style scoped>
-
+  .nav-bg{
+    background-color: rgb(136, 130, 130);
+  }
 </style>
